@@ -13,10 +13,11 @@ const NavBar = () => {
     const [isDarkMode, setDarkMode] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
-    const { setProducts} = useProducts();
+    const { setProducts, setHasMore} = useProducts();
     const { getItemCount } = useCart();
     const handleSearch = async () => {
         const result = await searchProducts(searchQuery);
+        setHasMore(result.total !== result.limit);
         setProducts(result.products);
     };
     const getNavLinkClass = (isActive: boolean) => {
